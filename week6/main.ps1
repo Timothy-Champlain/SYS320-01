@@ -148,13 +148,10 @@ while($operation){
         $checkerLogout = checkUser($name)
         if($checkerLogout){
             $days = Read-Host -Prompt "Please enter the number of days to check back in the logs"
-            #if($days -inotlike "[0-9]{1,}"){
-                #write-host "not a valid integer" | out-string
-            #}
-            #else{
-                $userLogins = getFailedLogins $days
-                Write-Host ($userLogins | Where-Object { $_.User -ilike "*$name"} | Format-Table | Out-String)
-            #}
+            
+            $userLogins = getFailedLogins $days
+            Write-Host ($userLogins | Where-Object { $_.User -ilike "*$name"} | Format-Table | Out-String)
+            
         }
         else{
             write-host "No such user: $name" | Out-String
