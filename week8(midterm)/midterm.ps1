@@ -14,7 +14,9 @@ for($i-1; $i -lt $trs.length; $i++){
 }
 return $FullTable
 }
-# obtainIOC
+$FullTable = obtainIOC
+# $FullTable
+
 
 function apacheAccessLogs(){
 $logsNotformatted = Get-Content C:\Users\champuser\Downloads\access.log
@@ -31,8 +33,15 @@ for($i=0; $i -lt $logsNotformatted.count; $i++){
 }
 return $tableRecords | Where-Object { $_.IP -ilike "10.*" }
 }
-$tableRecord = apacheAccessLogs
+$tableRecords = apacheAccessLogs
 # $tableRecords | Format-Table -AutoSize -Wrap
 
-function IOCLogs($FullTable, $tableRecord){
 
+function IOCLogs($FullTable, $tableRecords){
+$testTable = $FullTable
+Write-Host "Test Marker"
+return $testTable
+}
+
+$someArray = IOCLogs
+Write-Host $someArray
