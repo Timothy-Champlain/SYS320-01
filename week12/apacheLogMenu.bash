@@ -1,6 +1,6 @@
 #! /bin/bash
 
-logFile="/var/log/apache2/access.log.1"
+logFile="/var/log/apache2/access.log"
 
 function displayAllLogs(){
 	cat "$logFile"
@@ -10,8 +10,10 @@ function displayOnlyIPs(){
         cat "$logFile" | cut -d ' ' -f 1 | sort -n | uniq -c
 }
 
-# function: displayOnlyPages:
+function displayOnlyPages(){
 # like displayOnlyIPs - but only pages
+        cat "$logFile" | cut -d ' ' -f 7 | sort -n | uniq -c
+}
 
 function histogram(){
 
@@ -33,40 +35,42 @@ function histogram(){
 	cat "newtemp.txt" | sort -n | uniq -c
 }
 
-# function: frequentVisitors: 
-# Only display the IPs that have more than 10 visits
-# You can either call histogram and process the results,
-# Or make a whole new function. Do not forget to separate the 
-# number and check with a condition whether it is greater than 10
-# the output should be almost identical to histogram
-# only with daily number of visits that are greater than 10 
+function frequentVisitors(){
+        histoCall=$(histogram)
+        #echo "$histoCall"
+        :> newtemp1.txt
+	echo "$histoCall" | while read -r line;
+	do
+		local IPCount=$(echo "$line" | cut -d " " -f 1)
+		local IP=$(echo "$line" | cut -d " " -f 2)
+		if [[ "${IPCount}" -ge "10" ]]
+		then
+			echo "$IPCount $IP" >> newtemp1.txt
+		fi
+	done
+	cat "newtemp1.txt"
+}
 
-# function: suspiciousVisitors
-# Manually make a list of indicators of attack (ioc.txt)
-# filter the records with this indicators of attack
-# only display the unique count of IP addresses.  
-# Hint: there are examples in slides
-
-# Keep in mind that I have selected long way of doing things to 
-# demonstrate loops, functions, etc. If you can do things simpler,
-# it is welcomed.
+function suspiciousVisitors(){
+	cat "$logFile" | egrep -i -f ioc.txt | cut -d " " -f 1 | sort -n | uniq -c
+}
 
 while :
 do
-	echo "PLease select an option:"
+	echo "Please select an option:"
 	echo "[1] Display all Logs"
 	echo "[2] Display only IPS"
-	# Display only pages visited
+	echo "[3] Display only Pages"
 	echo "[4] Histogram"
-	# Frequent visitors
-	# Suspicious visitors
+	echo "[5] Frequent Visitors"
+	echo "[6] Suspicious visitors"
 	echo "[7] Quit"
 
 	read userInput
 	echo ""
 
 	if [[ "$userInput" == "7" ]]; then
-		echo "Goodbye"		
+		echo "Goodbye"
 		break
 
 	elif [[ "$userInput" == "1" ]]; then
@@ -77,15 +81,26 @@ do
 		echo "Displaying only IPS:"
 		displayOnlyIPs
 
-	# Display only pages visited
+	elif [[ "$userInput" == "3" ]]; then
+                echo "Displaying only Pages:"
+                displayOnlyPages
 
 	elif [[ "$userInput" == "4" ]]; then
 		echo "Histogram:"
 		histogram
 
-        # Display frequent visitors
-	# Display suspicious visitors
-	# Display a message, if an invalid input is given
+        elif [[ "$userInput" == "5" ]]; then
+                echo "Frequent Visitors:"
+                frequentVisitors
+
+        elif [[ "$userInput" == "6" ]]; then
+	        echo "Suspicious Visitors:"
+                suspiciousVisitors
+
+	else
+		echo "Please enter a valid input from 1-7"
+		echo ""
+
 	fi
 done
 
