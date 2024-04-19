@@ -1,0 +1,8 @@
+SEC 110-01 | Cybersecurity Fundamentals | 3 | 10 | MTH | 10AM-11:15AM | Syed Ali |  8/26 - 12/13 | None | FREE 105
+SEC 110-02 | Cybersecurity Fundamentals | 3 | 11 | MTH | 11:30AM-12:45PM | Syed Ali |  8/26 - 12/13 | None | FREE 105
+SEC 110-03 | Cybersecurity Fundamentals | 3 | 14 | MTH | 4PM-5:15PM | Syed Ali |  8/26 - 12/13 | None | FREE 105
+SEC 250-01 | Computer  Network Security | 3 | 6 | W | 9AM-11:45AM | Syed Ali |  8/26 - 12/13 | Complete SEC-110 or ... more | JOYC 310
+SEC 260-01 | Web and Applications Security | 3 | 7 | MTH | 4PM-5:15PM | Joe Eastman |  8/26 - 12/13 | Complete NET-150 and... more | JOYC 310
+SEC 335-215 | Eth. Hacking  Pen. Testing | 3 | 3 | Online | Furkan Paligu |  8/26 - 12/13 | Complete SEC-260, SE... more |  | 
+SEC 440-01 | Systems Security | 3 | 3 | T | 1PM-3:45PM | Adam Goldstein |  8/26 - 12/13 | Complete SYS-265, NE... more | FREE 105
+SEC 480-01 | Adv Topics in Cyber Security | 3 | 11 | F | 10AM-12:45PM | Furkan Paligu |  8/26 - 12/13 | Complete 90 credits ... more | JOYC 310
